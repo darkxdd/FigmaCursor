@@ -1,13 +1,28 @@
 {
-  "name": "figmaxreact",
-  "private": true,
-  "version": "0.0.0",
+  "name": "figma-to-react-generator",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
+  "description": "Generate React components from Figma designs",
+  "main": "src/main.jsx",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "setup": "node setup.js",
+    "postinstall": "node postinstall.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest --watch",
+    "test:unit": "node src/test/testRunner.js unit",
+    "test:integration": "node src/test/testRunner.js integration",
+    "test:performance": "node src/test/testRunner.js performance",
+    "test:all": "node src/test/testRunner.js all",
+    "test:report": "node src/test/testRunner.js report"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -15,19 +30,46 @@
     "@mui/icons-material": "^7.3.0",
     "@mui/material": "^7.3.0",
     "axios": "^1.11.0",
+    "jszip": "^3.10.1",
+    "prettier": "^3.6.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-syntax-highlighter": "^15.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/ui": "^2.1.8",
     "eslint": "^9.30.1",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
-    "vite": "^7.0.4"
-  }
+    "jsdom": "^26.0.0",
+    "msw": "^2.7.0",
+    "vite": "^7.0.4",
+    "vitest": "^2.1.8"
+  },
+  "keywords": [
+    "figma",
+    "react",
+    "component-generator",
+    "design-to-code"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/figma-to-react-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/figma-to-react-generator/issues"
+  },
+  "homepage": "https://github.com/yourusername/figma-to-react-generator#readme"
 }

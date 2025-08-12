@@ -11,7 +11,58 @@ import {
 } from '@mui/material';
 import { Image as ImageIcon } from '@mui/icons-material';
 
-const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
+const DesignPreview = ({ 
+  selectedComponent, 
+  componentImage, 
+  loading,
+  pageGenerationMode = false,
+  selectedComponentsForPage = []
+}) => {
+  if (pageGenerationMode) {
+    return (
+      <Box
+        sx={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'background.default',
+        }}
+      >
+        <Box sx={{ textAlign: 'center', p: 3 }}>
+          <ImageIcon sx={{ fontSize: 64, color: 'grey.400', mb: 2 }} />
+          <Typography variant="h6" color="text.secondary" gutterBottom>
+            Page Generation Mode
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            {selectedComponentsForPage.length > 0 
+              ? `Selected ${selectedComponentsForPage.length} components for page generation`
+              : 'Select components from the sidebar to generate a complete page'
+            }
+          </Typography>
+          {selectedComponentsForPage.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                Selected Components:
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, maxHeight: 200, overflow: 'auto' }}>
+                {selectedComponentsForPage.map((comp, index) => (
+                  <Chip
+                    key={comp.id}
+                    label={`${comp.name} (${comp.type})`}
+                    size="small"
+                    variant="outlined"
+                    color="primary"
+                  />
+                ))}
+              </Box>
+            </Box>
+          )}
+        </Box>
+      </Box>
+    );
+  }
+
   if (!selectedComponent) {
     return (
       <Box
@@ -20,7 +71,7 @@ const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'grey.50',
+          backgroundColor: 'background.default',
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
@@ -37,8 +88,8 @@ const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
   }
 
   return (
-    <Box sx={{ height: '100%', overflow: 'auto', p: 2 }}>
-      <Paper sx={{ p: 3, height: '100%' }}>
+    <Box sx={{ height: '100%', overflow: 'auto' }}>
+      <Paper sx={{ p: 3, height: '100%', borderRadius: 0 }}>
         <Typography variant="h5" gutterBottom>
           {selectedComponent.name}
         </Typography>
@@ -63,6 +114,7 @@ const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
             <Skeleton variant="rectangular" width="100%" height={300} />
           ) : componentImage ? (
             <Box
+              className="design-preview-container"
               sx={{
                 border: 1,
                 borderColor: 'divider',
@@ -70,7 +122,8 @@ const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
                 overflow: 'hidden',
                 display: 'flex',
                 justifyContent: 'center',
-                backgroundColor: 'grey.50',
+                backgroundColor: '#fafafa', // Always soft white background
+                p: 2,
               }}
             >
               <img
@@ -85,6 +138,7 @@ const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
             </Box>
           ) : (
             <Box
+              className="design-preview-container"
               sx={{
                 border: 1,
                 borderColor: 'divider',
@@ -93,7 +147,7 @@ const DesignPreview = ({ selectedComponent, componentImage, loading }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'grey.50',
+                backgroundColor: '#fafafa', // Always soft white background
               }}
             >
               <Typography color="text.secondary">
